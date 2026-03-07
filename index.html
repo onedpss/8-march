@@ -33,7 +33,6 @@
             justify-content: center;
         }
 
-        /* Background Image Setup */
         .background-container {
             position: fixed;
             top: 0;
@@ -53,7 +52,6 @@
             transform: scale(1);
         }
 
-        /* Main Card Container */
         .card-container {
             background: var(--bg-overlay);
             backdrop-filter: blur(10px);
@@ -76,7 +74,6 @@
             transform: translateY(0);
         }
 
-        /* Typography */
         h1 {
             font-family: 'Great Vibes', cursive;
             font-size: 4rem;
@@ -98,7 +95,6 @@
             font-weight: 600;
         }
 
-        /* Photo Placeholder Area */
         .photo-frame {
             width: 200px;
             height: 200px;
@@ -123,7 +119,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none; /* Hidden until user adds photo */
+            display: none;
         }
 
         .photo-placeholder-text {
@@ -132,7 +128,6 @@
             padding: 10px;
         }
 
-        /* Button */
         .btn {
             background: linear-gradient(45deg, #d63384, #ff6b9d);
             color: white;
@@ -158,7 +153,6 @@
             transform: translateY(1px);
         }
 
-        /* Animations */
         @keyframes float {
             0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
             50% { opacity: 1; }
@@ -190,7 +184,6 @@
             padding-top: 2rem;
         }
 
-        /* Responsive */
         @media (max-width: 480px) {
             h1 { font-size: 3rem; }
             .card-container { padding: 2rem 1.5rem; }
@@ -204,8 +197,9 @@
 
     <div class="card-container" id="mainCard">
         <div class="photo-frame">
-            <!-- Сюда можно вставить ссылку на фото мамы позже -->
-            <!-- <img src="URL_ФОТО_МАМЫ" alt="Мама"> -->
+            
+            <!-- You can insert a link to Mom's photo here later: src = "link" -->
+            <img src="" alt="Mom">
             <div class="photo-placeholder-text">
                 Место для<br>вашего фото
             </div>
@@ -234,7 +228,6 @@
     </div>
 
     <script>
-        // Background load animation
         window.addEventListener('load', () => {
             document.getElementById('bgContainer').classList.add('loaded');
             setTimeout(() => {
@@ -247,12 +240,10 @@
             const btn = document.querySelector('.btn');
             
             messageDiv.classList.add('revealed');
-            btn.style.display = 'none'; // Hide button after click
+            btn.style.display = 'none';
             
-            // Start heart rain
             startHeartRain();
             
-            // Scroll to bottom of card smoothly
             setTimeout(() => {
                 messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }, 800);
@@ -263,29 +254,26 @@
             heart.classList.add('floating-heart');
             heart.innerHTML = '❤️';
             
-            // Random positioning and sizing
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 4 + 's'; // 4-7s
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
             heart.style.fontSize = Math.random() * 20 + 10 + 'px';
             heart.style.opacity = Math.random();
             
             document.body.appendChild(heart);
             
-            // Remove heart after animation finishes
             setTimeout(() => {
                 heart.remove();
             }, 7000);
         }
 
         function startHeartRain() {
-            // Create initial burst
             for(let i = 0; i < 20; i++) {
                 setTimeout(createHeart, i * 100);
             }
             
-            // Continuous rain
             setInterval(createHeart, 300);
         }
     </script>
 </body>
 </html>
+
