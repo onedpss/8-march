@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С 8 Марта, любимая Мама!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #d63384;
+            --secondary-color: #f8d7da;
+            --text-color: #4a4a4a;
+            --bg-overlay: rgba(255, 255, 255, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fff0f3;
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Background Image Setup */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('https://image.qwenlm.ai/public_source/c3d67cbf-c757-4a65-b728-3d9ae9fd75d9/115db90f6-22a9-48b6-828e-616925eae6c8.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(4px);
+            transform: scale(1.1);
+            transition: transform 10s ease;
+        }
+
+        .background-container.loaded {
+            transform: scale(1);
+        }
+
+        /* Main Card Container */
+        .card-container {
+            background: var(--bg-overlay);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .card-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        .highlight {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Photo Placeholder Area */
+        .photo-frame {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            position: relative;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-frame:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none; /* Hidden until user adds photo */
+        }
+
+        .photo-placeholder-text {
+            color: #aaa;
+            font-size: 0.9rem;
+            padding: 10px;
+        }
+
+        /* Button */
+        .btn {
+            background: linear-gradient(45deg, #d63384, #ff6b9d);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(214, 51, 132, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .floating-heart {
+            position: fixed;
+            bottom: -50px;
+            color: #ff6b9d;
+            font-size: 20px;
+            animation: float 6s linear infinite;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .hidden-message {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 1s ease-out;
+            opacity: 0;
+        }
+
+        .hidden-message.revealed {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            h1 { font-size: 3rem; }
+            .card-container { padding: 2rem 1.5rem; }
+            .photo-frame { width: 150px; height: 150px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-container" id="bgContainer"></div>
+
+    <div class="card-container" id="mainCard">
+        <div class="photo-frame">
+            <!-- Сюда можно вставить ссылку на фото мамы позже -->
+            <!-- <img src="URL_ФОТО_МАМЫ" alt="Мама"> -->
+            <div class="photo-placeholder-text">
+                Место для<br>вашего фото
+            </div>
+        </div>
+
+        <h1>С 8 Марта!</h1>
+        
+        <p>
+            Дорогая <span class="highlight">Мама</span>!<br>
+            Поздравляю тебя с самым нежным праздником весны!
+        </p>
+
+        <button class="btn" onclick="revealMessage()">Открыть поздравление</button>
+
+        <div class="hidden-message" id="hiddenMessage">
+            <p>
+                Спасибо тебе за твою бесконечную любовь, заботу и тепло, которое ты даришь каждый день. 
+                Ты — самый главный человек в моей жизни, мой ангел-хранитель и лучший друг.
+            </p>
+            <p>
+                Желаю тебе крепкого здоровья, огромного счастья, улыбок и чтобы каждый твой день был наполнен радостью и цветами!
+                <br><br>
+                <strong>Люблю тебя бесконечно!</strong> ❤️
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Background load animation
+        window.addEventListener('load', () => {
+            document.getElementById('bgContainer').classList.add('loaded');
+            setTimeout(() => {
+                document.getElementById('mainCard').classList.add('visible');
+            }, 500);
+        });
+
+        function revealMessage() {
+            const messageDiv = document.getElementById('hiddenMessage');
+            const btn = document.querySelector('.btn');
+            
+            messageDiv.classList.add('revealed');
+            btn.style.display = 'none'; // Hide button after click
+            
+            // Start heart rain
+            startHeartRain();
+            
+            // Scroll to bottom of card smoothly
+            setTimeout(() => {
+                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 800);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '❤️';
+            
+            // Random positioning and sizing
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's'; // 4-7s
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.opacity = Math.random();
+            
+            document.body.appendChild(heart);
+            
+            // Remove heart after animation finishes
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+
+        function startHeartRain() {
+            // Create initial burst
+            for(let i = 0; i < 20; i++) {
+                setTimeout(createHeart, i * 100);
+            }
+            
+            // Continuous rain
+            setInterval(createHeart, 300);
+        }
+    </script>
+</body>
+</html>
